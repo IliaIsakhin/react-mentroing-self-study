@@ -23,7 +23,7 @@ export class MovieItem extends React.Component<{ movie: MovieDTO }, {}> {
                 {movie.release_date}
             </Container>
             <Container textAlign='left'>
-                {movie.genres.map(genre => <GenreItem value={genre} />)}
+                {movie.genres.map(genre => <GenreItem value={genre} key={genre.toString()} />)}
             </Container>
         </div>
     }

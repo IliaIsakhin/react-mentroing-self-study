@@ -1,5 +1,5 @@
 export function getMovies() {
-    return fetch('https://react-cdp-api.herokuapp.com/movies')
+    return fetch('//react-cdp-api.herokuapp.com/movies')
         .then((response) => response.json())
         .then(responseJson =>  responseJson.data)
         .catch((error) => {

@@ -8781,7 +8781,7 @@ eval("\r\nvar __extends = (this && this.__extends) || (function () {\r\n    var 
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar React = __webpack_require__(/*! react */ \"../node_modules/react/index.js\");\r\nvar semantic_ui_react_1 = __webpack_require__(/*! semantic-ui-react */ \"../node_modules/semantic-ui-react/dist/es/index.js\");\r\nexports.GenreItem = function (value) {\r\n    return (React.createElement(semantic_ui_react_1.Label, { horizontal: true }, value));\r\n};\r\n\n\n//# sourceURL=webpack:///./GenreItem.tsx?");
+eval("\r\nvar __extends = (this && this.__extends) || (function () {\r\n    var extendStatics = Object.setPrototypeOf ||\r\n        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||\r\n        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };\r\n    return function (d, b) {\r\n        extendStatics(d, b);\r\n        function __() { this.constructor = d; }\r\n        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());\r\n    };\r\n})();\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar React = __webpack_require__(/*! react */ \"../node_modules/react/index.js\");\r\nvar semantic_ui_react_1 = __webpack_require__(/*! semantic-ui-react */ \"../node_modules/semantic-ui-react/dist/es/index.js\");\r\nvar GenreItem = /** @class */ (function (_super) {\r\n    __extends(GenreItem, _super);\r\n    function GenreItem(props) {\r\n        return _super.call(this, props) || this;\r\n    }\r\n    GenreItem.prototype.render = function () {\r\n        return (React.createElement(semantic_ui_react_1.Label, { horizontal: true }, this.props.value));\r\n    };\r\n    return GenreItem;\r\n}(React.Component));\r\nexports.GenreItem = GenreItem;\r\n\n\n//# sourceURL=webpack:///./GenreItem.tsx?");
 
 /***/ }),
 
@@ -8829,7 +8829,7 @@ eval("\r\nvar __extends = (this && this.__extends) || (function () {\r\n    var 
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nfunction getMovies() {\r\n    return fetch('http://react-cdp-api.herokuapp.com/movies')\r\n        .then(function (response) { return response.json(); })\r\n        .then(function (responseJson) { return responseJson.data; })\r\n        .catch(function (error) {\r\n        console.error(error);\r\n    });\r\n}\r\nexports.getMovies = getMovies;\r\n\n\n//# sourceURL=webpack:///./MovieService.tsx?");
+eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nfunction getMovies() {\r\n    return fetch('https://react-cdp-api.herokuapp.com/movies')\r\n        .then(function (response) { return response.json(); })\r\n        .then(function (responseJson) { return responseJson.data; })\r\n        .catch(function (error) {\r\n        console.error(error);\r\n    });\r\n}\r\nexports.getMovies = getMovies;\r\n\n\n//# sourceURL=webpack:///./MovieService.tsx?");
 
 /***/ }),
 

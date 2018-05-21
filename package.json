@@ -24,7 +24,7 @@
     "webpack": "4.8.3",
     "webpack-dev-server": "^3.1.4"
   },
-  "homepage": "https://iliaisakhin.github.io/react-mentroing-self-study",
+  "homepage": "https://iliaisakhin.github.io/react-mentroing-self-study/",
   "dependencies": {
     "@types/react": "16.3.11",
     "@types/react-dom": "16.0.5",

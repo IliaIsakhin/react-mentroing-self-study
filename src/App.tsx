@@ -1,23 +1,22 @@
-import * as React from "react";
+import * as React from "react"
+import { Header } from "./Header"
+import { Body } from "./Body"
+import { Footer } from "./Footer"
+import { MovieDTO } from "MovieDTO"
 
-export class App extends React.Component<{name: string}> {
+export class App extends React.Component<{}, { movieList: MovieDTO[] }> {
 
   constructor(props) {
     super(props)
   }
 
-  componentDidMount() {
-    console.log('mounted')
-  }
-
-  handleClick() {
-    alert()
-  }
-
   render() {
-
     return (
-      <button onClick={this.handleClick.bind(this)}/>
-    );
+      <div>
+        <Header />
+        <Body />
+        <Footer />
+      </div>
+    )
   }
 }

@@ -1,8 +1,15 @@
 import * as React from "react"
 import { Label } from 'semantic-ui-react'
 
-export const GenreItem = (value) => {
-    return (
-        <Label horizontal>{value}</Label>
-    )
+export class GenreItem extends React.Component<{value: string}, {}> {
+    constructor(props){
+        super(props)
+    }
+
+
+    render() {
+        return (
+            <Label horizontal>{this.props.value}</Label>
+        )
+    }
 }

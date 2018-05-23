@@ -3,9 +3,10 @@ import { MovieDTO } from "./MovieDTO"
 import { MovieItem } from "./MovieItem"
 import { getMovies } from "./MovieService"
 import { Spinner } from "./Spinner"
+import { NoDataMessage } from "./NoDataMessage"
 import { Grid } from 'semantic-ui-react'
 
-export class MovieList extends React.Component<{}, { movies: MovieDTO[], isLoading: boolean }> {
+export class MovieList extends React.Component<{params: Object}, { movies: MovieDTO[], isLoading: boolean }> {
     constructor(props) {
         super(props)
     }
@@ -16,7 +17,9 @@ export class MovieList extends React.Component<{}, { movies: MovieDTO[], isLoadi
             movies: []
         })
 
-        getMovies().then(result => {
+        let url = '//react-cdp-api.herokuapp.com/movies';
+
+        getMovies(url, this.props.params).then(result => {
             if (result) {
                 this.setState({
                     isLoading: false,
@@ -38,9 +41,13 @@ export class MovieList extends React.Component<{}, { movies: MovieDTO[], isLoadi
                 </Grid.Column>
             )
 
-            return <Grid doubling columns={5}>
-                {movies}
-            </Grid>
+            if (movies.length == 0) {
+                return <NoDataMessage />
+            } else {
+                return <Grid doubling columns={5}>
+                    {movies}
+                </Grid>
+            }
         }
     }
 }

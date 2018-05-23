@@ -15,7 +15,7 @@
 
     "lib": ["dom", "es2015"],
 
-    "baseUrl": "./src",
+    "baseUrl": "./src/components",
     "sourceMap": true,
     "outDir": "./dist/ts"
   },

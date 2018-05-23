@@ -1,0 +1,15 @@
+@backgroud-url: '../images/header-background.jpeg';
+@mask-image-value: -webkit-gradient(linear, right top, left bottom, from(rgba(0, 0, 0, 1)), to(rgba(0, 0, 0, 0.1)));
+
+.movie-item {
+    margin: 10%;
+}
+
+.header > div.header-image {
+    height: 300px;
+    width: 100%;
+    background-image: url(@backgroud-url);
+    background-position:center;
+    background-size:auto;
+    filter: brightness(0.5);
+}

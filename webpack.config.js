@@ -1,21 +1,22 @@
 const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
-module.exports = function(env, options) {
+module.exports = function (env, options) {
 
   const config = {
-    context: path.join(__dirname, "src"),
+    context: path.join(__dirname, "src/components"),
     entry: "./",
     mode: "development",
+    devtool: "source-map",
 
     resolve: {
       extensions: [".js", ".jsx", ".ts", ".tsx"]
     },
 
     module: {
-      rules: [
-        {
+      rules: [{
           test: /\.jsx?$/,
           loader: "babel-loader",
           exclude: /node_modules/
@@ -27,6 +28,17 @@ module.exports = function(env, options) {
           options: {
             useCache: true
           }
+        },
+        {
+          test: /\.less$/,
+          use: ExtractTextPlugin.extract({ fallback: 'style-loader', use: ["css-loader", "less-loader"] })
+        },
+        {
+          test:/\.(png|jpeg)$/,
+          loader: "file-loader",
+          options: {
+            name: '[path][name].[ext]?[hash]'
+          }
         }
       ]
     },
@@ -36,7 +48,8 @@ module.exports = function(env, options) {
         title: "App",
         hash: true,
         template: path.resolve(__dirname, "./index.html")
-      })
+      }),
+      new ExtractTextPlugin("style.css"),
     ],
 
     devServer: {

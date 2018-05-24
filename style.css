@@ -10,7 +10,7 @@
   background-image: url(_/images/header-background.jpeg?f70a7439d75269f3486844b5d296a9c7);
   background-position: center;
   background-size: auto;
-  filter: brightness(0.5);
+  filter: brightness(0.3);
   position: relative;
 }
 .search-panel {
@@ -51,6 +51,7 @@ textarea {
 .search-button {
   height: 43px;
   width: 43px;
+  outline: none;
 }
 .text {
   text-transform: uppercase;
@@ -60,12 +61,17 @@ textarea {
   background-color: #f75263;
 }
 .non-active-button {
-  background-color: grey;
+  background-color: #3c3c3c;
 }
 .button {
   border: 0px;
   text-transform: uppercase;
   margin: 5px;
+  cursor: pointer;
+  color: white;
+  width: 70px;
+  padding: 5px;
+  outline: none;
 }
 .additional-header {
   background-color: #f5f5f5;

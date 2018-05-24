@@ -1,41 +1,22 @@
 import * as React from "react"
 import { MovieDTO } from "./MovieDTO"
 import { MovieItem } from "./MovieItem"
-import { getMovies } from "./MovieService"
 import { Spinner } from "./Spinner"
 import { NoDataMessage } from "./NoDataMessage"
 import { Grid } from 'semantic-ui-react'
 
-export class MovieList extends React.Component<{params: Object}, { movies: MovieDTO[], isLoading: boolean }> {
+export class MovieList extends React.Component<{params: Object, isLoading: boolean, movies: MovieDTO[]}, {}> {
     constructor(props) {
         super(props)
     }
 
-    componentWillMount() {
-        this.setState({
-            isLoading: true,
-            movies: []
-        })
-
-        let url = '//react-cdp-api.herokuapp.com/movies';
-
-        getMovies(url, this.props.params).then(result => {
-            if (result) {
-                this.setState({
-                    isLoading: false,
-                    movies: result
-                })
-            }
-        })
-    }
-
     render() {
-        const isLoading = this.state.isLoading
+        const isLoading = this.props.isLoading
 
         if (isLoading) {
             return <Spinner />
         } else {
-            const movies = this.state.movies.map(movie =>
+            const movies = this.props.movies.map(movie =>
                 <Grid.Column key={movie.id} >
                     <MovieItem movie={movie} />
                 </Grid.Column>

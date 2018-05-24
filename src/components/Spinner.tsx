@@ -3,7 +3,7 @@ import { Loader, Segment } from 'semantic-ui-react'
 
 export const Spinner = () => {
     return (
-        <Segment>
+        <Segment className="block">
             <Loader active />
         </Segment>
     )

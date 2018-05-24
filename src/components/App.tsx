@@ -15,7 +15,8 @@ export class App extends React.Component<{}, { params: ParamsDTO, isLoading: boo
       params: {
         limit: 10,
         searchBy: 'title',
-        search: ''
+        search: '',
+        sortBy: 'release_date'
       },
       isLoading: true,
       movies: []

@@ -25,7 +25,8 @@ export class Header extends React.Component<{handleInput: Function,
             <div className="header-image" />
 
             <AdditionalPanel moviesCounter={this.props.moviesCounter} 
-                             handleChangeSorting={this.props.handleChangeSorting} />
+                             handleChangeSorting={this.props.handleChangeSorting}
+                             params={this.props.params} />
         </div>
     }
 }

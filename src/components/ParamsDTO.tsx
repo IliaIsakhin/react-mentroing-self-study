@@ -1,5 +1,6 @@
 export interface ParamsDTO {
     search: string,
     searchBy: string,
-    limit: number
+    limit: number,
+    sortBy: string
 }

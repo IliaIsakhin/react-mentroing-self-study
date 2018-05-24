@@ -16,7 +16,7 @@
     background-image: url(@backgroud-url);
     background-position:center;
     background-size:auto;
-    filter: brightness(0.5);
+    filter: brightness(0.3);
     position: relative;
 }
 
@@ -50,19 +50,21 @@
     width: 90%;
     line-height: 30px;
     padding: 5px 0px 5px 15px;
-}
-
-input[type=text], textarea {
     -webkit-transition: all 0.30s ease-in-out;
     -moz-transition: all 0.30s ease-in-out;
     -ms-transition: all 0.30s ease-in-out;
     -o-transition: all 0.30s ease-in-out;
     outline: none;
-  }
+
+    &::selection {
+        background: white;
+    }
+}
 
 .search-button {
     height: 43px;
     width: 43px;
+    outline: none;
 }
 
 .text {
@@ -75,13 +77,18 @@ input[type=text], textarea {
 }
 
 .non-active-button {
-    background-color: grey;
+    background-color: #3c3c3c;
 }
 
 .button {
     border: 0px;
     text-transform: uppercase;
     margin: 5px;
+    cursor: pointer;
+    color: white;
+    width: 70px;
+    padding: 5px;
+    outline: none;
 }
 
 .additional-header {

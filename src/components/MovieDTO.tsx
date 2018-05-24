@@ -5,7 +5,7 @@ export interface MovieDTO {
     poster_path: string
     release_date: Date
     genres: string[]
-    rating: number
+    vote_average: number
     revenue: number
     runtime: number
     overview: string

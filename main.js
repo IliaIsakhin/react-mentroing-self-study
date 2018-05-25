@@ -63452,7 +63452,7 @@ function constructURL(url, params) {
     if (params) {
         url += '?';
         Object.keys(params).forEach(function (key) { return url += key + '=' + params[key] + '&'; });
-        if (url.charAt(url.length) == '&') {
+        if (url.charAt(url.length - 1) == '&') {
             url = url.substring(0, url.length - 1);
         }
     }
@@ -63484,6 +63484,9 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "../../node_modules/react/index.js");
+var semantic_ui_react_1 = __webpack_require__(/*! semantic-ui-react */ "../../node_modules/semantic-ui-react/dist/es/index.js");
+var classNames = __webpack_require__(/*! classnames */ "../../node_modules/classnames/index.js");
+var ParameterEnums_1 = __webpack_require__(/*! ./DTO/Enums/ParameterEnums */ "./DTO/Enums/ParameterEnums.tsx");
 var AdditionalPanel = /** @class */ (function (_super) {
     __extends(AdditionalPanel, _super);
     function AdditionalPanel(props) {
@@ -63491,13 +63494,32 @@ var AdditionalPanel = /** @class */ (function (_super) {
         _this.handleChangeSorting = _this.handleChangeSorting.bind(_this);
         return _this;
     }
-    AdditionalPanel.prototype.handleChangeSorting = function () {
-        this.props.handleChangeSorting();
+    AdditionalPanel.prototype.handleChangeSorting = function (event) {
+        this.props.handleChangeSorting(event);
     };
     AdditionalPanel.prototype.render = function () {
-        return React.createElement("div", { className: "additional-header" },
-            this.props.moviesCounter,
-            " movies found");
+        var sortByDate = ParameterEnums_1.EnumSortBy.DATE;
+        var sortByRating = ParameterEnums_1.EnumSortBy.VOTE;
+        var buttonTitleClassNames = classNames({
+            'active-button': this.props.params.sortBy == sortByDate,
+            'non-active-button': this.props.params.sortBy == sortByRating,
+            'button': true
+        });
+        var buttonGenreClassNames = classNames({
+            'active-button': this.props.params.sortBy == sortByRating,
+            'non-active-button': this.props.params.sortBy == sortByDate,
+            'button': true
+        });
+        return React.createElement(semantic_ui_react_1.Grid, { className: "additional-header" },
+            React.createElement(semantic_ui_react_1.Grid.Column, null,
+                this.props.moviesCounter,
+                " movies found"),
+            React.createElement(semantic_ui_react_1.Grid.Column, null,
+                React.createElement("p", { className: "text" }, "Search by")),
+            React.createElement(semantic_ui_react_1.Grid.Column, null,
+                React.createElement("button", { className: buttonTitleClassNames, onClick: this.handleChangeSorting, value: sortByDate }, "Release date")),
+            React.createElement(semantic_ui_react_1.Grid.Column, null,
+                React.createElement("button", { className: buttonGenreClassNames, onClick: this.handleChangeSorting, value: sortByRating }, "Rating")));
     };
     return AdditionalPanel;
 }(React.Component));
@@ -63539,6 +63561,7 @@ var Header_1 = __webpack_require__(/*! ./Header */ "./Header.tsx");
 var Body_1 = __webpack_require__(/*! ./Body */ "./Body.tsx");
 var Footer_1 = __webpack_require__(/*! ./Footer */ "./Footer.tsx");
 var MovieService_1 = __webpack_require__(/*! ./MovieService */ "./MovieService.tsx");
+var ParameterEnums_1 = __webpack_require__(/*! ./DTO/Enums/ParameterEnums */ "./DTO/Enums/ParameterEnums.tsx");
 var App = /** @class */ (function (_super) {
     __extends(App, _super);
     function App(props) {
@@ -63546,8 +63569,10 @@ var App = /** @class */ (function (_super) {
         _this.state = {
             params: {
                 limit: 10,
-                searchBy: 'title',
-                search: ''
+                searchBy: ParameterEnums_1.EnumSearchBy.TITLE,
+                search: '',
+                sortBy: ParameterEnums_1.EnumSortBy.DATE,
+                sortOrder: ParameterEnums_1.EnumSortOrder.ASC
             },
             isLoading: true,
             movies: []
@@ -63633,6 +63658,35 @@ var Body = /** @class */ (function (_super) {
     return Body;
 }(React.Component));
 exports.Body = Body;
+
+
+/***/ }),
+
+/***/ "./DTO/Enums/ParameterEnums.tsx":
+/*!**************************************!*\
+  !*** ./DTO/Enums/ParameterEnums.tsx ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var EnumSortOrder;
+(function (EnumSortOrder) {
+    EnumSortOrder["DESC"] = "desc";
+    EnumSortOrder["ASC"] = "asc";
+})(EnumSortOrder = exports.EnumSortOrder || (exports.EnumSortOrder = {}));
+var EnumSortBy;
+(function (EnumSortBy) {
+    EnumSortBy["DATE"] = "release_date";
+    EnumSortBy["VOTE"] = "vote_average";
+})(EnumSortBy = exports.EnumSortBy || (exports.EnumSortBy = {}));
+var EnumSearchBy;
+(function (EnumSearchBy) {
+    EnumSearchBy["TITLE"] = "title";
+    EnumSearchBy["GENRES"] = "genres";
+})(EnumSearchBy = exports.EnumSearchBy || (exports.EnumSearchBy = {}));
 
 
 /***/ }),
@@ -63725,7 +63779,7 @@ var Header = /** @class */ (function (_super) {
         return React.createElement("div", { className: "header" },
             React.createElement(SearchPanel_1.SearchPanel, { handleInput: this.props.handleInput, handleSearch: this.props.handleSearch, handleChangeSearchBy: this.props.handleChangeSearchBy, params: this.props.params }),
             React.createElement("div", { className: "header-image" }),
-            React.createElement(AdditionalPanel_1.AdditionalPanel, { moviesCounter: this.props.moviesCounter, handleChangeSorting: this.props.handleChangeSorting }));
+            React.createElement(AdditionalPanel_1.AdditionalPanel, { moviesCounter: this.props.moviesCounter, handleChangeSorting: this.props.handleChangeSorting, params: this.props.params }));
     };
     return Header;
 }(React.Component));
@@ -63881,6 +63935,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "../../node_modules/react/index.js");
 __webpack_require__(/*! ../less/styles.less */ "../less/styles.less");
 var classNames = __webpack_require__(/*! classnames */ "../../node_modules/classnames/index.js");
+var ParameterEnums_1 = __webpack_require__(/*! ./DTO/Enums/ParameterEnums */ "./DTO/Enums/ParameterEnums.tsx");
 var SearchByPanel = /** @class */ (function (_super) {
     __extends(SearchByPanel, _super);
     function SearchByPanel(props) {
@@ -63892,8 +63947,8 @@ var SearchByPanel = /** @class */ (function (_super) {
         this.props.handleChangeSearchBy(event);
     };
     SearchByPanel.prototype.render = function () {
-        var searchByGenre = 'genres';
-        var searchByTitle = 'title';
+        var searchByGenre = ParameterEnums_1.EnumSearchBy.GENRES;
+        var searchByTitle = ParameterEnums_1.EnumSearchBy.TITLE;
         var buttonTitleClassNames = classNames({ 'active-button': this.props.params.searchBy == searchByTitle,
             'non-active-button': this.props.params.searchBy != searchByTitle,
             'button': true });

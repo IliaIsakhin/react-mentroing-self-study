@@ -7,7 +7,7 @@
 .header-image {
   height: 300px;
   width: 100%;
-  background-image: url(../img/f70a7439d75269f3486844b5d296a9c7.jpeg);
+  background-image: url('/img/header-background.jpeg');
   background-position: center;
   background-size: auto;
   filter: brightness(0.4);

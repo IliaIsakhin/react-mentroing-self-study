@@ -63906,7 +63906,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "../../node_modules/react/index.js");
 var semantic_ui_react_1 = __webpack_require__(/*! semantic-ui-react */ "../../node_modules/semantic-ui-react/dist/es/index.js");
 exports.NoDataMessage = function () {
-    return (React.createElement(semantic_ui_react_1.Segment, null, "No films found"));
+    return (React.createElement(semantic_ui_react_1.Segment, { className: 'block' },
+        React.createElement("p", null, "No films found")));
 };
 
 
@@ -64035,7 +64036,8 @@ var React = __webpack_require__(/*! react */ "../../node_modules/react/index.js"
 var semantic_ui_react_1 = __webpack_require__(/*! semantic-ui-react */ "../../node_modules/semantic-ui-react/dist/es/index.js");
 exports.Spinner = function () {
     return (React.createElement(semantic_ui_react_1.Segment, { className: "block" },
-        React.createElement(semantic_ui_react_1.Loader, { active: true })));
+        React.createElement("p", null,
+            React.createElement(semantic_ui_react_1.Loader, { active: true }))));
 };
 
 

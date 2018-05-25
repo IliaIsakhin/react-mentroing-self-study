@@ -7,7 +7,7 @@
 .header-image {
   height: 300px;
   width: 100%;
-  background-image: url('//backgroundcheckall.com/wp-content/uploads/2017/12/netflix-background-9.jpg');
+  background-image: url(../img/f70a7439d75269f3486844b5d296a9c7.jpeg);
   background-position: center;
   background-size: auto;
   filter: brightness(0.4);
@@ -21,9 +21,12 @@
   z-index: 1;
 }
 .block {
-  width: 80%;
-  margin: 10%;
   height: 600px;
+}
+.block p {
+  padding-top: 100px;
+  font-size: 75px;
+  text-align: center;
 }
 .search {
   background-color: black;

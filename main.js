@@ -63484,7 +63484,6 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "../../node_modules/react/index.js");
-var semantic_ui_react_1 = __webpack_require__(/*! semantic-ui-react */ "../../node_modules/semantic-ui-react/dist/es/index.js");
 var classNames = __webpack_require__(/*! classnames */ "../../node_modules/classnames/index.js");
 var ParameterEnums_1 = __webpack_require__(/*! ./DTO/Enums/ParameterEnums */ "./DTO/Enums/ParameterEnums.tsx");
 var AdditionalPanel = /** @class */ (function (_super) {
@@ -63503,23 +63502,22 @@ var AdditionalPanel = /** @class */ (function (_super) {
         var buttonTitleClassNames = classNames({
             'active-button': this.props.params.sortBy == sortByDate,
             'non-active-button': this.props.params.sortBy == sortByRating,
-            'button': true
+            'button': true,
+            'float-right': true
         });
         var buttonGenreClassNames = classNames({
             'active-button': this.props.params.sortBy == sortByRating,
             'non-active-button': this.props.params.sortBy == sortByDate,
-            'button': true
+            'button': true,
+            'float-right': true
         });
-        return React.createElement(semantic_ui_react_1.Grid, { className: "additional-header" },
-            React.createElement(semantic_ui_react_1.Grid.Column, null,
+        return React.createElement("div", { className: "additional-header" },
+            React.createElement("span", null,
                 this.props.moviesCounter,
                 " movies found"),
-            React.createElement(semantic_ui_react_1.Grid.Column, null,
-                React.createElement("p", { className: "text" }, "Search by")),
-            React.createElement(semantic_ui_react_1.Grid.Column, null,
-                React.createElement("button", { className: buttonTitleClassNames, onClick: this.handleChangeSorting, value: sortByDate }, "Release date")),
-            React.createElement(semantic_ui_react_1.Grid.Column, null,
-                React.createElement("button", { className: buttonGenreClassNames, onClick: this.handleChangeSorting, value: sortByRating }, "Rating")));
+            React.createElement("button", { className: buttonGenreClassNames, onClick: this.handleChangeSorting, value: sortByRating }, "Rating"),
+            React.createElement("button", { className: buttonTitleClassNames, onClick: this.handleChangeSorting, value: sortByDate }, "Release date"),
+            React.createElement("span", { className: 'float-right' }, "Sort by"));
     };
     return AdditionalPanel;
 }(React.Component));
@@ -63575,12 +63573,15 @@ var App = /** @class */ (function (_super) {
                 sortOrder: ParameterEnums_1.EnumSortOrder.ASC
             },
             isLoading: true,
-            movies: []
+            movies: [],
+            selectedMovie: undefined
         };
         _this.handleInput = _this.handleInput.bind(_this);
         _this.handleSearch = _this.handleSearch.bind(_this);
         _this.handleChangeSearchBy = _this.handleChangeSearchBy.bind(_this);
         _this.handleChangeSorting = _this.handleChangeSorting.bind(_this);
+        _this.handleOnClickItem = _this.handleOnClickItem.bind(_this);
+        _this.handleReturnClick = _this.handleReturnClick.bind(_this);
         return _this;
     }
     App.prototype.componentWillMount = function () {
@@ -63607,15 +63608,21 @@ var App = /** @class */ (function (_super) {
         this.doFetch();
     };
     App.prototype.handleChangeSearchBy = function (event) {
-        this.setState(__assign({}, this.state, { params: __assign({}, this.state.params, { searchBy: event.target.value }) }));
+        this.setState(__assign({}, this.state, { params: __assign({}, this.state.params, { search: '', searchBy: event.target.value }) }));
     };
     App.prototype.handleChangeSorting = function (event) {
         this.setState(__assign({}, this.state, { params: __assign({}, this.state.params, { sortBy: event.target.value }) }));
     };
+    App.prototype.handleOnClickItem = function (movie) {
+        this.setState(__assign({}, this.state, { selectedMovie: movie, params: __assign({}, this.state.params, { search: '' }) }));
+    };
+    App.prototype.handleReturnClick = function () {
+        this.setState(__assign({}, this.state, { selectedMovie: undefined }));
+    };
     App.prototype.render = function () {
-        return (React.createElement("div", null,
-            React.createElement(Header_1.Header, { handleInput: this.handleInput, handleSearch: this.handleSearch, handleChangeSearchBy: this.handleChangeSearchBy, handleChangeSorting: this.handleChangeSorting, params: this.state.params, moviesCounter: this.state.movies.length }),
-            React.createElement(Body_1.Body, { params: this.state.params, isLoading: this.state.isLoading, movies: this.state.movies }),
+        return (React.createElement(React.Fragment, null,
+            React.createElement(Header_1.Header, { handleInput: this.handleInput, handleSearch: this.handleSearch, handleChangeSearchBy: this.handleChangeSearchBy, handleChangeSorting: this.handleChangeSorting, params: this.state.params, moviesCounter: this.state.movies.length, selectedMovie: this.state.selectedMovie, handleReturnClick: this.handleReturnClick }),
+            React.createElement(Body_1.Body, { params: this.state.params, isLoading: this.state.isLoading, movies: this.state.movies, handleOnClickItem: this.handleOnClickItem }),
             React.createElement(Footer_1.Footer, null)));
     };
     return App;
@@ -63653,7 +63660,7 @@ var Body = /** @class */ (function (_super) {
         return _super.call(this, props) || this;
     }
     Body.prototype.render = function () {
-        return React.createElement(MovieList_1.MovieList, { params: this.props.params, isLoading: this.props.isLoading, movies: this.props.movies });
+        return React.createElement(MovieList_1.MovieList, { params: this.props.params, isLoading: this.props.isLoading, movies: this.props.movies, handleOnClickItem: this.props.handleOnClickItem });
     };
     return Body;
 }(React.Component));
@@ -63767,8 +63774,8 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "../../node_modules/react/index.js");
-var SearchPanel_1 = __webpack_require__(/*! ./SearchPanel */ "./SearchPanel.tsx");
 __webpack_require__(/*! ../less/styles.less */ "../less/styles.less");
+var MainPanel_1 = __webpack_require__(/*! ./MainPanel */ "./MainPanel.tsx");
 var AdditionalPanel_1 = __webpack_require__(/*! ./AdditionalPanel */ "./AdditionalPanel.tsx");
 var Header = /** @class */ (function (_super) {
     __extends(Header, _super);
@@ -63777,13 +63784,56 @@ var Header = /** @class */ (function (_super) {
     }
     Header.prototype.render = function () {
         return React.createElement("div", { className: "header" },
-            React.createElement(SearchPanel_1.SearchPanel, { handleInput: this.props.handleInput, handleSearch: this.props.handleSearch, handleChangeSearchBy: this.props.handleChangeSearchBy, params: this.props.params }),
+            React.createElement(MainPanel_1.MainPanel, { handleInput: this.props.handleInput, handleSearch: this.props.handleSearch, handleChangeSearchBy: this.props.handleChangeSearchBy, handleChangeSorting: this.props.handleChangeSorting, params: this.props.params, moviesCounter: this.props.moviesCounter, selectedMovie: this.props.selectedMovie, handleReturnClick: this.props.handleReturnClick }),
             React.createElement("div", { className: "header-image" }),
             React.createElement(AdditionalPanel_1.AdditionalPanel, { moviesCounter: this.props.moviesCounter, handleChangeSorting: this.props.handleChangeSorting, params: this.props.params }));
     };
     return Header;
 }(React.Component));
 exports.Header = Header;
+
+
+/***/ }),
+
+/***/ "./MainPanel.tsx":
+/*!***********************!*\
+  !*** ./MainPanel.tsx ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(/*! react */ "../../node_modules/react/index.js");
+var SearchModePanel_1 = __webpack_require__(/*! ./SearchModePanel */ "./SearchModePanel.tsx");
+var ViewModePanel_1 = __webpack_require__(/*! ./ViewModePanel */ "./ViewModePanel.tsx");
+var MainPanel = /** @class */ (function (_super) {
+    __extends(MainPanel, _super);
+    function MainPanel(props) {
+        return _super.call(this, props) || this;
+    }
+    MainPanel.prototype.render = function () {
+        if (this.props.selectedMovie === undefined) {
+            return React.createElement(SearchModePanel_1.SearchModePanel, { handleInput: this.props.handleInput, handleSearch: this.props.handleSearch, handleChangeSearchBy: this.props.handleChangeSearchBy, params: this.props.params });
+        }
+        else {
+            return React.createElement(ViewModePanel_1.ViewModePanel, { selectedMovie: this.props.selectedMovie, handleReturnClick: this.props.handleReturnClick });
+        }
+    };
+    return MainPanel;
+}(React.Component));
+exports.MainPanel = MainPanel;
 
 
 /***/ }),
@@ -63797,19 +63847,42 @@ exports.Header = Header;
 
 "use strict";
 
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "../../node_modules/react/index.js");
 var semantic_ui_react_1 = __webpack_require__(/*! semantic-ui-react */ "../../node_modules/semantic-ui-react/dist/es/index.js");
 var GenreItem_1 = __webpack_require__(/*! ./GenreItem */ "./GenreItem.tsx");
 __webpack_require__(/*! ../less/styles.less */ "../less/styles.less");
-exports.MovieItem = function (props) {
-    return React.createElement("div", { className: "movie-item" },
-        React.createElement(semantic_ui_react_1.Container, { textAlign: 'center' },
-            React.createElement(semantic_ui_react_1.Image, { src: props.movie.poster_path })),
-        React.createElement(semantic_ui_react_1.Container, { textAlign: 'left' }, props.movie.title),
-        React.createElement(semantic_ui_react_1.Container, { textAlign: 'right' }, props.movie.release_date),
-        React.createElement(semantic_ui_react_1.Container, { textAlign: 'left' }, props.movie.genres.map(function (genre) { return React.createElement(GenreItem_1.GenreItem, { value: genre, key: genre.toString() }); })));
-};
+var MovieItem = /** @class */ (function (_super) {
+    __extends(MovieItem, _super);
+    function MovieItem(props) {
+        var _this = _super.call(this, props) || this;
+        _this.handleOnClickItem = _this.handleOnClickItem.bind(_this);
+        return _this;
+    }
+    MovieItem.prototype.handleOnClickItem = function () {
+        this.props.handleOnClickItem(this.props.movie);
+    };
+    MovieItem.prototype.render = function () {
+        return React.createElement("div", { onClick: this.handleOnClickItem, className: "movie-item" },
+            React.createElement(semantic_ui_react_1.Container, { textAlign: 'center' },
+                React.createElement(semantic_ui_react_1.Image, { src: this.props.movie.poster_path })),
+            React.createElement(semantic_ui_react_1.Container, { textAlign: 'left' }, this.props.movie.title),
+            React.createElement(semantic_ui_react_1.Container, { textAlign: 'right' }, this.props.movie.release_date),
+            React.createElement(semantic_ui_react_1.Container, { textAlign: 'left' }, this.props.movie.genres.map(function (genre) { return React.createElement(GenreItem_1.GenreItem, { value: genre, key: genre.toString() }); })));
+    };
+    return MovieItem;
+}(React.Component));
+exports.MovieItem = MovieItem;
 
 
 /***/ }),
@@ -63845,6 +63918,7 @@ var MovieList = /** @class */ (function (_super) {
         return _super.call(this, props) || this;
     }
     MovieList.prototype.render = function () {
+        var _this = this;
         var isLoading = this.props.isLoading;
         if (isLoading) {
             return React.createElement(Spinner_1.Spinner, null);
@@ -63852,7 +63926,7 @@ var MovieList = /** @class */ (function (_super) {
         else {
             var movies = this.props.movies.map(function (movie) {
                 return React.createElement(semantic_ui_react_1.Grid.Column, { key: movie.id },
-                    React.createElement(MovieItem_1.MovieItem, { movie: movie }));
+                    React.createElement(MovieItem_1.MovieItem, { movie: movie, handleOnClickItem: _this.props.handleOnClickItem }));
             });
             if (movies.length == 0) {
                 return React.createElement(NoDataMessage_1.NoDataMessage, null);
@@ -63942,10 +64016,14 @@ var SearchByPanel = /** @class */ (function (_super) {
     function SearchByPanel(props) {
         var _this = _super.call(this, props) || this;
         _this.handleChangeSearchBy = _this.handleChangeSearchBy.bind(_this);
+        _this.handleSearch = _this.handleSearch.bind(_this);
         return _this;
     }
     SearchByPanel.prototype.handleChangeSearchBy = function (event) {
         this.props.handleChangeSearchBy(event);
+    };
+    SearchByPanel.prototype.handleSearch = function () {
+        this.props.handleSearch();
     };
     SearchByPanel.prototype.render = function () {
         var searchByGenre = ParameterEnums_1.EnumSearchBy.GENRES;
@@ -63959,7 +64037,8 @@ var SearchByPanel = /** @class */ (function (_super) {
         return React.createElement("div", null,
             React.createElement("p", { className: "text" }, "Search by"),
             React.createElement("button", { className: buttonTitleClassNames, onClick: this.handleChangeSearchBy, value: searchByTitle }, "title"),
-            React.createElement("button", { className: buttonGenreClassNames, onClick: this.handleChangeSearchBy, value: searchByGenre }, "genres"));
+            React.createElement("button", { className: buttonGenreClassNames, onClick: this.handleChangeSearchBy, value: searchByGenre }, "genres"),
+            React.createElement("button", { className: "button float-right active-button", onClick: this.handleSearch }, "Search"));
     };
     return SearchByPanel;
 }(React.Component));
@@ -63968,10 +64047,10 @@ exports.SearchByPanel = SearchByPanel;
 
 /***/ }),
 
-/***/ "./SearchPanel.tsx":
-/*!*************************!*\
-  !*** ./SearchPanel.tsx ***!
-  \*************************/
+/***/ "./SearchModePanel.tsx":
+/*!*****************************!*\
+  !*** ./SearchModePanel.tsx ***!
+  \*****************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -63991,33 +64070,32 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "../../node_modules/react/index.js");
 __webpack_require__(/*! ../less/styles.less */ "../less/styles.less");
 var SearchByPanel_1 = __webpack_require__(/*! ./SearchByPanel */ "./SearchByPanel.tsx");
-var SearchPanel = /** @class */ (function (_super) {
-    __extends(SearchPanel, _super);
-    function SearchPanel(props) {
+var SearchModePanel = /** @class */ (function (_super) {
+    __extends(SearchModePanel, _super);
+    function SearchModePanel(props) {
         var _this = _super.call(this, props) || this;
         _this.handleInput = _this.handleInput.bind(_this);
         _this.handleSearch = _this.handleSearch.bind(_this);
         return _this;
     }
-    SearchPanel.prototype.handleSearch = function () {
+    SearchModePanel.prototype.handleSearch = function () {
         this.props.handleSearch();
     };
-    SearchPanel.prototype.handleInput = function (event) {
+    SearchModePanel.prototype.handleInput = function (event) {
         this.props.handleInput(event);
     };
-    SearchPanel.prototype.handleChangeSearchBy = function () {
+    SearchModePanel.prototype.handleChangeSearchBy = function () {
         this.props.handleChangeSearchBy();
     };
-    SearchPanel.prototype.render = function () {
+    SearchModePanel.prototype.render = function () {
         return React.createElement("div", { className: "search-panel" },
             React.createElement("p", { className: "text" }, "Find your movie"),
             React.createElement("input", { className: "search search-box", onKeyUp: this.handleInput, type: 'text' }),
-            React.createElement("button", { className: "search search-button", onClick: this.handleSearch }, "->"),
-            React.createElement(SearchByPanel_1.SearchByPanel, { handleChangeSearchBy: this.props.handleChangeSearchBy, params: this.props.params }));
+            React.createElement(SearchByPanel_1.SearchByPanel, { handleChangeSearchBy: this.props.handleChangeSearchBy, params: this.props.params, handleSearch: this.props.handleSearch }));
     };
-    return SearchPanel;
+    return SearchModePanel;
 }(React.Component));
-exports.SearchPanel = SearchPanel;
+exports.SearchModePanel = SearchModePanel;
 
 
 /***/ }),
@@ -64036,8 +64114,39 @@ var React = __webpack_require__(/*! react */ "../../node_modules/react/index.js"
 var semantic_ui_react_1 = __webpack_require__(/*! semantic-ui-react */ "../../node_modules/semantic-ui-react/dist/es/index.js");
 exports.Spinner = function () {
     return (React.createElement(semantic_ui_react_1.Segment, { className: "block" },
-        React.createElement("p", null,
-            React.createElement(semantic_ui_react_1.Loader, { active: true }))));
+        React.createElement(semantic_ui_react_1.Loader, { active: true })));
+};
+
+
+/***/ }),
+
+/***/ "./ViewModePanel.tsx":
+/*!***************************!*\
+  !*** ./ViewModePanel.tsx ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(/*! react */ "../../node_modules/react/index.js");
+exports.ViewModePanel = function (props) {
+    var handleReturnClick = function () {
+        props.handleReturnClick();
+    };
+    var movie = props.selectedMovie;
+    if (movie === undefined) {
+        return null;
+    }
+    else {
+        return React.createElement("div", { className: 'view-panel' },
+            React.createElement("img", { src: movie.poster_path, className: 'view-image' }),
+            React.createElement("div", { className: 'movie-info' },
+                React.createElement("span", { className: 'movie-title' }, movie.title),
+                React.createElement("span", null, movie.vote_average)),
+            React.createElement("button", { onClick: handleReturnClick }, "Return to search"));
+    }
 };
 
 

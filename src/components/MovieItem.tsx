@@ -4,24 +4,32 @@ import { Image, Container } from "semantic-ui-react"
 import { GenreItem } from "./GenreItem"
 import '../less/styles.less'
 
-interface MovieItemProps {
-    movie: MovieDTO
-}
+export class MovieItem extends React.Component<{ movie: MovieDTO, handleOnClickItem: Function }, {}> {
+    constructor(props) {
+        super(props)
 
-export const MovieItem: React.SFC<MovieItemProps> = (props) => {
-    return <div className="movie-item">
-        <Container textAlign='center'>
-            <Image src={props.movie.poster_path} />
-        </Container>
-        <Container textAlign='left'>
-            {props.movie.title}
-        </Container>
-        <Container textAlign='right'>
-            {props.movie.release_date}
-        </Container>
-        <Container textAlign='left'>
-            {props.movie.genres.map(genre => <GenreItem value={genre}
-                key={genre.toString()} />)}
-        </Container>
-    </div>
+        this.handleOnClickItem = this.handleOnClickItem.bind(this)
+    }
+
+    handleOnClickItem() {
+        this.props.handleOnClickItem(this.props.movie)
+    }
+
+    render() {
+        return <div onClick={this.handleOnClickItem} className="movie-item">
+            <Container textAlign='center'>
+                <Image src={this.props.movie.poster_path} />
+            </Container>
+            <Container textAlign='left'>
+                {this.props.movie.title}
+            </Container>
+            <Container textAlign='right'>
+                {this.props.movie.release_date}
+            </Container>
+            <Container textAlign='left'>
+                {this.props.movie.genres.map(genre => <GenreItem value={genre}
+                    key={genre.toString()} />)}
+            </Container>
+        </div>
+    }
 }

@@ -1,4 +1,5 @@
-@backgroud-url: '//backgroundcheckall.com/wp-content/uploads/2017/12/netflix-background-9.jpg';
+//@backgroud-url: '//backgroundcheckall.com/wp-content/uploads/2017/12/netflix-background-9.jpg';
+@backgroud-url: '../header-background.jpeg';
 @mask-image-value: -webkit-gradient(linear, right top, left bottom, from(rgba(0, 0, 0, 1)), to(rgba(0, 0, 0, 0.1)));
 @light-red: #f75263;
 
@@ -11,13 +12,18 @@
 }
 
 .header-image {
-    height: 300px;
+    height: 600px;
     width: 100%;
     background-image: url(@backgroud-url);
     background-position:center;
     background-size:auto;
     filter: brightness(0.4);
     position: relative;
+}
+
+.movie-title {
+    font-size: 30px;
+    color: #f85875;
 }
 
 .search-panel {
@@ -28,14 +34,41 @@
     z-index: 1;
 }
 
+.view-panel {
+    position: absolute;
+    top: 10%;
+    right: 20%;
+    left: 20%;
+    z-index: 1;
+    height: 450px;
+}
+
+.movie-info {
+    height: 400px;
+    width: 600px;
+    margin-left: 350px;
+    margin-top: 30px;
+    padding: 30px;
+}
+
+.view-image {
+    height: 400px;
+    margin: 30px;
+    float: left;
+}
+
 .block {
-    width: 80%;
-    margin: 10%;
-    height: 600px;
+    height: 400px;
+
+    & p {
+        padding-top: 100px;
+        font-size: 75px;
+        text-align: center;
+    }
 }
 
 .search {
-    background-color: black;
+    background-color: black !important;
     border-bottom: 3px @light-red solid;
     border-top: 0px;
     border-left: 0px;
@@ -47,7 +80,7 @@
 }
 
 .search-box {
-    width: 90%;
+    width: 100%;
     line-height: 30px;
     padding: 5px 0px 5px 15px;
     -webkit-transition: all 0.30s ease-in-out;
@@ -63,7 +96,6 @@
 
 .search-button {
     height: 43px;
-    width: 43px;
     outline: none;
 }
 
@@ -86,12 +118,15 @@
     margin: 5px;
     cursor: pointer;
     color: white;
-    width: 70px;
     padding: 5px;
     outline: none;
 }
 
 .additional-header {
     background-color: #f5f5f5;
-    height: 80px;
+    height: 40px;
+}
+
+.float-right {
+    float: right;
 }

@@ -1,6 +1,8 @@
 export enum GenreEnum {
-    Comedy = 'Comedy',
+    Action = 'Action',
     Documental = 'Documental',
     Adventure = 'Adventure',
-    Drama = 'Drama'
+    Drama = 'Drama',
+    Crime = 'Crime',
+    Thriller = 'Thriller'
 }

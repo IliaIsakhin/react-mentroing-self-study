@@ -3,8 +3,8 @@ import { Segment } from 'semantic-ui-react'
 
 export const NoDataMessage = () => {
     return (
-        <Segment>
-            No films found
+        <Segment className='block'>
+            <p>No films found</p>
         </Segment>
     )
 }

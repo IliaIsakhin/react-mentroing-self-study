@@ -34,11 +34,8 @@ module.exports = function (env, options) {
           use: ExtractTextPlugin.extract({ fallback: 'style-loader', use: ["css-loader", "less-loader"] })
         },
         {
-          test:/\.(png|jpeg)$/,
+          test:/\.(png|jpe?g)$/,
           loader: "file-loader",
-          options: {
-            name: '[path][name].[ext]?[hash]'
-          }
         }
       ]
     },

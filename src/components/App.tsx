@@ -7,7 +7,7 @@ import { ParamsDTO } from "./DTO/ParamsDTO"
 import { getMovies } from "./MovieService"
 import { EnumSortOrder, EnumSortBy, EnumSearchBy } from './DTO/Enums/ParameterEnums'
 
-export class App extends React.Component<{}, { params: ParamsDTO, isLoading: boolean, movies: MovieDTO[]}> {
+export class App extends React.Component<{}, { params: ParamsDTO, isLoading: boolean, movies: MovieDTO[], selectedMovie?: MovieDTO}> {
 
   constructor(props) {
     super(props)
@@ -21,13 +21,16 @@ export class App extends React.Component<{}, { params: ParamsDTO, isLoading: boo
         sortOrder: EnumSortOrder.ASC
       },
       isLoading: true,
-      movies: []
+      movies: [],
+      selectedMovie: undefined
     }
 
     this.handleInput = this.handleInput.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
     this.handleChangeSearchBy = this.handleChangeSearchBy.bind(this)
     this.handleChangeSorting = this.handleChangeSorting.bind(this)
+    this.handleOnClickItem = this.handleOnClickItem.bind(this)
+    this.handleReturnClick = this.handleReturnClick.bind(this)
   }
 
   componentWillMount() {
@@ -78,6 +81,7 @@ export class App extends React.Component<{}, { params: ParamsDTO, isLoading: boo
       ...this.state,
       params: {
         ...this.state.params,
+        search: '',
         searchBy: event.target.value
       }
     })
@@ -93,20 +97,41 @@ export class App extends React.Component<{}, { params: ParamsDTO, isLoading: boo
     })
   }
 
+  handleOnClickItem(movie) {
+    this.setState({
+      ...this.state,
+      selectedMovie: movie,
+      params: {
+        ...this.state.params,
+        search: ''
+      }
+    })
+  }
+
+  handleReturnClick() {
+    this.setState({
+      ...this.state,
+      selectedMovie: undefined
+    })
+  }
+
   render() {
     return (
-      <div>
+      <>
         <Header handleInput={this.handleInput}
                 handleSearch={this.handleSearch}
                 handleChangeSearchBy={this.handleChangeSearchBy}
                 handleChangeSorting={this.handleChangeSorting}
-                params={this.state.params} 
-                moviesCounter={this.state.movies.length}/>
+                params={this.state.params}
+                moviesCounter={this.state.movies.length}
+                selectedMovie={this.state.selectedMovie}
+                handleReturnClick={this.handleReturnClick} />
         <Body params={this.state.params}
               isLoading={this.state.isLoading} 
-              movies={this.state.movies} />
+              movies={this.state.movies} 
+              handleOnClickItem={this.handleOnClickItem}/>
         <Footer />
-      </div>
+      </>
     )
   }
 }

@@ -1,5 +1,4 @@
 import * as React from "react"
-import { Grid } from 'semantic-ui-react'
 import * as classNames from 'classnames'
 import { ParamsDTO } from "./DTO/ParamsDTO"
 import { EnumSortBy } from './DTO/Enums/ParameterEnums'
@@ -21,24 +20,22 @@ export class AdditionalPanel extends React.Component<{ moviesCounter: number, ha
         var buttonTitleClassNames = classNames({
             'active-button': this.props.params.sortBy == sortByDate,
             'non-active-button': this.props.params.sortBy == sortByRating,
-            'button': true
+            'button': true,
+            'float-right': true
         })
         var buttonGenreClassNames = classNames({
             'active-button': this.props.params.sortBy == sortByRating,
             'non-active-button': this.props.params.sortBy == sortByDate,
-            'button': true
+            'button': true,
+            'float-right': true
         })
 
-        return <Grid className="additional-header">
-            <Grid.Column>
-                {this.props.moviesCounter} movies found
-            </Grid.Column>
-            <Grid.Column><p className="text">Search by</p></Grid.Column>
-            <Grid.Column>
-                <button className={buttonTitleClassNames} onClick={this.handleChangeSorting} value={sortByDate}>Release date</ button></Grid.Column>
-            <Grid.Column>
-                <button className={buttonGenreClassNames} onClick={this.handleChangeSorting} value={sortByRating}>Rating</ button>
-            </Grid.Column>
-        </Grid>
+        return <div className="additional-header">
+            <span>{this.props.moviesCounter} movies found</span>
+           
+            <button className={buttonGenreClassNames} onClick={this.handleChangeSorting} value={sortByRating}>Rating</ button>
+            <button className={buttonTitleClassNames} onClick={this.handleChangeSorting} value={sortByDate}>Release date</ button>
+            <span className='float-right'>Sort by</span>
+        </div>
     }
 }

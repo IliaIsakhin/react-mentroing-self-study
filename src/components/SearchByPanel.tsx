@@ -4,15 +4,22 @@ import { ParamsDTO } from "./DTO/ParamsDTO"
 import * as classNames from 'classnames'
 import { EnumSearchBy } from './DTO/Enums/ParameterEnums'
 
-export class SearchByPanel extends React.Component<{ handleChangeSearchBy: Function, params: ParamsDTO }> {
+export class SearchByPanel extends React.Component<{ handleChangeSearchBy: Function, handleSearch: Function, params: ParamsDTO }> {
     constructor(props) {
         super(props)
 
         this.handleChangeSearchBy = this.handleChangeSearchBy.bind(this)
+        this.handleSearch = this.handleSearch.bind(this)
     }
 
+    
     handleChangeSearchBy(event) {
         this.props.handleChangeSearchBy(event)
+    }
+
+    
+    handleSearch() {
+        this.props.handleSearch()
     }
 
     render() {
@@ -29,6 +36,7 @@ export class SearchByPanel extends React.Component<{ handleChangeSearchBy: Funct
             <p className="text">Search by</p>
             <button className={buttonTitleClassNames} onClick={this.handleChangeSearchBy} value={searchByTitle}>title</ button>
             <button className={buttonGenreClassNames} onClick={this.handleChangeSearchBy} value={searchByGenre}>genres</ button>
+            <button className="button float-right active-button" onClick={this.handleSearch}>Search</ button>
         </div>
     }
 }

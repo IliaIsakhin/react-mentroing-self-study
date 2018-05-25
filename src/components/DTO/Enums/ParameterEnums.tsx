@@ -3,7 +3,6 @@ export enum EnumSortOrder {
     ASC = 'asc'
 }
 
-
 export enum EnumSortBy {
     DATE = 'release_date',
     VOTE = 'vote_average'

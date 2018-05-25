@@ -1,15 +1,20 @@
 import * as React from 'react'
-import { SearchPanel } from './SearchPanel'
 import '../less/styles.less'
 import { ParamsDTO } from "./DTO/ParamsDTO"
-import { AdditionalPanel } from './AdditionalPanel';
+import { MainPanel } from './MainPanel'
+import { MovieDTO } from 'DTO/MovieDTO'
+import { AdditionalPanel } from './AdditionalPanel'
 
-export class Header extends React.Component<{handleInput: Function, 
-                                             handleSearch: Function, 
-                                             handleChangeSearchBy: Function, 
-                                             handleChangeSorting: Function, 
-                                             params:ParamsDTO, 
-                                             moviesCounter: number}, {}> {
+export class Header extends React.Component<{
+    handleInput: Function,
+    handleSearch: Function,
+    handleChangeSearchBy: Function,
+    handleChangeSorting: Function,
+    params: ParamsDTO,
+    moviesCounter: number,
+    selectedMovie?: MovieDTO,
+    handleReturnClick: Function
+}, {}> {
     constructor(props) {
         super(props)
     }
@@ -17,16 +22,20 @@ export class Header extends React.Component<{handleInput: Function,
     render() {
         return <div className="header" >
 
-            <SearchPanel handleInput={this.props.handleInput}
-                         handleSearch={this.props.handleSearch} 
-                         handleChangeSearchBy={this.props.handleChangeSearchBy}
-                         params={this.props.params}/>
+            <MainPanel handleInput={this.props.handleInput}
+                handleSearch={this.props.handleSearch}
+                handleChangeSearchBy={this.props.handleChangeSearchBy}
+                handleChangeSorting={this.props.handleChangeSorting}
+                params={this.props.params}
+                moviesCounter={this.props.moviesCounter}
+                selectedMovie={this.props.selectedMovie}
+                handleReturnClick={this.props.handleReturnClick} />
 
             <div className="header-image" />
 
-            <AdditionalPanel moviesCounter={this.props.moviesCounter} 
-                             handleChangeSorting={this.props.handleChangeSorting}
-                             params={this.props.params} />
+            <AdditionalPanel moviesCounter={this.props.moviesCounter}
+                handleChangeSorting={this.props.handleChangeSorting}
+                params={this.props.params} />
         </div>
     }
 }

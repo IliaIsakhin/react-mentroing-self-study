@@ -3,7 +3,8 @@ import '../less/styles.less'
 import { ParamsDTO } from "./DTO/ParamsDTO"
 import { SearchByPanel } from './SearchByPanel'
 
-export class SearchPanel extends React.Component<{ handleInput: Function, handleSearch: Function, handleChangeSearchBy: Function, params: ParamsDTO }> {
+
+export class SearchModePanel extends React.Component<{ handleInput: Function, handleSearch: Function, handleChangeSearchBy: Function, params: ParamsDTO }> {
     constructor(props) {
         super(props)
 
@@ -27,8 +28,9 @@ export class SearchPanel extends React.Component<{ handleInput: Function, handle
         return <div className="search-panel">
             <p className="text">Find your movie</p>
             <input className="search search-box" onKeyUp={this.handleInput} type='text' />
-            <button className="search search-button" onClick={this.handleSearch}>-></ button>
-            <SearchByPanel handleChangeSearchBy={this.props.handleChangeSearchBy} params={this.props.params} />
+            <SearchByPanel handleChangeSearchBy={this.props.handleChangeSearchBy}
+                params={this.props.params}
+                handleSearch={this.props.handleSearch} />
         </div>
     }
 }

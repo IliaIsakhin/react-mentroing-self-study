@@ -5,7 +5,7 @@ import { Spinner } from "./Spinner"
 import { NoDataMessage } from "./NoDataMessage"
 import { Grid } from 'semantic-ui-react'
 
-export class MovieList extends React.Component<{params: Object, isLoading: boolean, movies: MovieDTO[]}, {}> {
+export class MovieList extends React.Component<{params: Object, isLoading: boolean, movies: MovieDTO[], handleOnClickItem: Function}, {}> {
     constructor(props) {
         super(props)
     }
@@ -18,7 +18,7 @@ export class MovieList extends React.Component<{params: Object, isLoading: boole
         } else {
             const movies = this.props.movies.map(movie =>
                 <Grid.Column key={movie.id} >
-                    <MovieItem movie={movie} />
+                    <MovieItem movie={movie} handleOnClickItem={this.props.handleOnClickItem} />
                 </Grid.Column>
             )
 

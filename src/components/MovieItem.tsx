@@ -1,5 +1,5 @@
 import * as React from "react"
-import { MovieDTO } from "./MovieDTO"
+import { MovieDTO } from "./DTO/MovieDTO"
 import { Image, Container } from "semantic-ui-react"
 import { GenreItem } from "./GenreItem"
 import '../less/styles.less'

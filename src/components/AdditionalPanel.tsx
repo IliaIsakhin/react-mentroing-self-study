@@ -1,7 +1,8 @@
 import * as React from "react"
 import { Grid } from 'semantic-ui-react'
 import * as classNames from 'classnames'
-import { ParamsDTO } from "ParamsDTO";
+import { ParamsDTO } from "./DTO/ParamsDTO"
+import { EnumSortBy } from './DTO/Enums/ParameterEnums'
 
 export class AdditionalPanel extends React.Component<{ moviesCounter: number, handleChangeSorting: Function, params: ParamsDTO }, {}> {
     constructor(props) {
@@ -15,22 +16,22 @@ export class AdditionalPanel extends React.Component<{ moviesCounter: number, ha
     }
 
     render() {
-        const sortByDate = 'release_date'
-        const sortByRating = 'vote_average'
+        const sortByDate = EnumSortBy.DATE
+        const sortByRating = EnumSortBy.VOTE
         var buttonTitleClassNames = classNames({
-            'active-button': this.props.params.searchBy == sortByDate,
-            'non-active-button': this.props.params.searchBy != sortByRating,
+            'active-button': this.props.params.sortBy == sortByDate,
+            'non-active-button': this.props.params.sortBy == sortByRating,
             'button': true
         })
         var buttonGenreClassNames = classNames({
-            'active-button': this.props.params.searchBy == sortByRating,
-            'non-active-button': this.props.params.searchBy != sortByDate,
+            'active-button': this.props.params.sortBy == sortByRating,
+            'non-active-button': this.props.params.sortBy == sortByDate,
             'button': true
         })
 
         return <Grid className="additional-header">
             <Grid.Column>
-                {this.props.moviesCounter}
+                {this.props.moviesCounter} movies found
             </Grid.Column>
             <Grid.Column><p className="text">Search by</p></Grid.Column>
             <Grid.Column>

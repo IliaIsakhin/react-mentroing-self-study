@@ -1,5 +1,5 @@
 import * as React from "react"
-import { MovieDTO } from "./MovieDTO"
+import { MovieDTO } from "./DTO/MovieDTO"
 import { MovieItem } from "./MovieItem"
 import { Spinner } from "./Spinner"
 import { NoDataMessage } from "./NoDataMessage"

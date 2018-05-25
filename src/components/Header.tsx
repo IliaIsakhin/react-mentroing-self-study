@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { SearchPanel } from './SearchPanel'
 import '../less/styles.less'
-import { ParamsDTO } from 'ParamsDTO';
+import { ParamsDTO } from "./DTO/ParamsDTO"
 import { AdditionalPanel } from './AdditionalPanel';
 
 export class Header extends React.Component<{handleInput: Function, 

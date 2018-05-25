@@ -2,9 +2,10 @@ import * as React from "react"
 import { Header } from "./Header"
 import { Body } from "./Body"
 import { Footer } from "./Footer"
-import { MovieDTO } from "MovieDTO";
-import { ParamsDTO } from "ParamsDTO";
+import { MovieDTO } from "./DTO/MovieDTO"
+import { ParamsDTO } from "./DTO/ParamsDTO"
 import { getMovies } from "./MovieService"
+import { EnumSortOrder, EnumSortBy, EnumSearchBy } from './DTO/Enums/ParameterEnums'
 
 export class App extends React.Component<{}, { params: ParamsDTO, isLoading: boolean, movies: MovieDTO[]}> {
 
@@ -14,9 +15,10 @@ export class App extends React.Component<{}, { params: ParamsDTO, isLoading: boo
     this.state = {
       params: {
         limit: 10,
-        searchBy: 'title',
+        searchBy: EnumSearchBy.TITLE,
         search: '',
-        sortBy: 'release_date'
+        sortBy: EnumSortBy.DATE,
+        sortOrder: EnumSortOrder.ASC
       },
       isLoading: true,
       movies: []

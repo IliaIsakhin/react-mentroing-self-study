@@ -1,7 +1,8 @@
 import * as React from "react"
 import '../less/styles.less'
-import { ParamsDTO } from "ParamsDTO"
+import { ParamsDTO } from "./DTO/ParamsDTO"
 import * as classNames from 'classnames'
+import { EnumSearchBy } from './DTO/Enums/ParameterEnums'
 
 export class SearchByPanel extends React.Component<{ handleChangeSearchBy: Function, params: ParamsDTO }> {
     constructor(props) {
@@ -15,8 +16,8 @@ export class SearchByPanel extends React.Component<{ handleChangeSearchBy: Funct
     }
 
     render() {
-        const searchByGenre = 'genres'
-        const searchByTitle = 'title'
+        const searchByGenre = EnumSearchBy.GENRES
+        const searchByTitle = EnumSearchBy.TITLE
         var buttonTitleClassNames = classNames({ 'active-button': this.props.params.searchBy == searchByTitle, 
                                                  'non-active-button': this.props.params.searchBy != searchByTitle , 
                                                  'button': true})

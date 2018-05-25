@@ -1,6 +1,6 @@
 import * as React from "react"
 import { MovieList } from "./MovieList"
-import { MovieDTO } from "MovieDTO";
+import { MovieDTO } from "./DTO/MovieDTO"
 
 export class Body extends React.Component<{params: Object, isLoading: boolean, movies: MovieDTO[]}, {}> {
     constructor(props) {

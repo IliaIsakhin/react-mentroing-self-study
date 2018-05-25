@@ -1,7 +1,7 @@
 import * as React from "react"
 import '../less/styles.less'
-import { ParamsDTO } from "ParamsDTO"
-import {SearchByPanel} from './SearchByPanel'
+import { ParamsDTO } from "./DTO/ParamsDTO"
+import { SearchByPanel } from './SearchByPanel'
 
 export class SearchPanel extends React.Component<{ handleInput: Function, handleSearch: Function, handleChangeSearchBy: Function, params: ParamsDTO }> {
     constructor(props) {
@@ -24,11 +24,11 @@ export class SearchPanel extends React.Component<{ handleInput: Function, handle
     }
 
     render() {
-         return <div className="search-panel">
+        return <div className="search-panel">
             <p className="text">Find your movie</p>
             <input className="search search-box" onKeyUp={this.handleInput} type='text' />
             <button className="search search-button" onClick={this.handleSearch}>-></ button>
-            <SearchByPanel handleChangeSearchBy={this.props.handleChangeSearchBy} params={this.props.params} /> 
+            <SearchByPanel handleChangeSearchBy={this.props.handleChangeSearchBy} params={this.props.params} />
         </div>
     }
 }

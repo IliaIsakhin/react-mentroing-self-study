@@ -1,13 +1,18 @@
 import * as React from "react"
-import { Header } from "./Header"
-import { Body } from "./Body"
-import { Footer } from "./Footer"
-import { MovieDTO } from "./DTO/MovieDTO"
-import { ParamsDTO } from "./DTO/ParamsDTO"
-import { getMovies } from "./MovieService"
-import { EnumSortOrder, EnumSortBy, EnumSearchBy } from './DTO/Enums/ParameterEnums'
+import Header from "./header/Header"
+import Body from "./Body"
+import MovieDTO from "./DTO/MovieDTO"
+import ParamsDTO from "./DTO/ParamsDTO"
+import getMovies from "../utils/MovieService"
+import { EnumSortOrder, EnumSortBy, EnumSearchBy } from "./DTO/Enums/Enums"
+import { sortMovies } from '../utils/utils'
 
-export class App extends React.Component<{}, { params: ParamsDTO, isLoading: boolean, movies: MovieDTO[], selectedMovie?: MovieDTO}> {
+export default class App extends React.Component<{}, { 
+  params: ParamsDTO,
+  isLoading: boolean,
+  movies: MovieDTO[],
+  selectedMovie?: MovieDTO,
+}> {
 
   constructor(props) {
     super(props)
@@ -16,9 +21,9 @@ export class App extends React.Component<{}, { params: ParamsDTO, isLoading: boo
       params: {
         limit: 10,
         searchBy: EnumSearchBy.TITLE,
-        search: '',
+        search: "",
         sortBy: EnumSortBy.DATE,
-        sortOrder: EnumSortOrder.ASC
+        sortOrder: EnumSortOrder.ASC,
       },
       isLoading: true,
       movies: [],
@@ -61,7 +66,7 @@ export class App extends React.Component<{}, { params: ParamsDTO, isLoading: boo
         search: event.target.value
       }
     })
-    
+
     if (key == 'Enter') {
       this.handleSearch()
     }
@@ -86,10 +91,11 @@ export class App extends React.Component<{}, { params: ParamsDTO, isLoading: boo
       }
     })
   }
-  
+
   handleChangeSorting(event) {
     this.setState({
       ...this.state,
+      movies: this.sortMovies(this.state.movies, event.target.value),
       params: {
         ...this.state.params,
         sortBy: event.target.value
@@ -98,6 +104,7 @@ export class App extends React.Component<{}, { params: ParamsDTO, isLoading: boo
   }
 
   handleOnClickItem(movie) {
+    window.scrollTo(0, 0)
     this.setState({
       ...this.state,
       selectedMovie: movie,
@@ -106,6 +113,7 @@ export class App extends React.Component<{}, { params: ParamsDTO, isLoading: boo
         search: ''
       }
     })
+
   }
 
   handleReturnClick() {
@@ -115,22 +123,25 @@ export class App extends React.Component<{}, { params: ParamsDTO, isLoading: boo
     })
   }
 
+  sortMovies(movies: MovieDTO[], by: string): MovieDTO[]{
+    return sortMovies(movies, by);
+  }
+
   render() {
     return (
       <>
         <Header handleInput={this.handleInput}
-                handleSearch={this.handleSearch}
-                handleChangeSearchBy={this.handleChangeSearchBy}
-                handleChangeSorting={this.handleChangeSorting}
-                params={this.state.params}
-                moviesCounter={this.state.movies.length}
-                selectedMovie={this.state.selectedMovie}
-                handleReturnClick={this.handleReturnClick} />
+          handleSearch={this.handleSearch}
+          handleChangeSearchBy={this.handleChangeSearchBy}
+          handleChangeSorting={this.handleChangeSorting}
+          params={this.state.params}
+          moviesCounter={this.state.movies.length}
+          selectedMovie={this.state.selectedMovie}
+          handleReturnClick={this.handleReturnClick} />
         <Body params={this.state.params}
-              isLoading={this.state.isLoading} 
-              movies={this.state.movies} 
-              handleOnClickItem={this.handleOnClickItem}/>
-        <Footer />
+          isLoading={this.state.isLoading}
+          movies={this.state.movies}
+          handleOnClickItem={this.handleOnClickItem} />
       </>
     )
   }

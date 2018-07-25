@@ -1,10 +1,8 @@
 import * as React from "react"
-import { MovieDTO } from "./DTO/MovieDTO"
-import { Image, Container } from "semantic-ui-react"
-import { GenreItem } from "./GenreItem"
-import '../less/styles.less'
+import MovieDTO from "./DTO/MovieDTO"
+import { GenreItem } from "./pure/GenreItem"
 
-export class MovieItem extends React.Component<{ movie: MovieDTO, handleOnClickItem: Function }, {}> {
+export default class MovieItem extends React.Component<{ movie: MovieDTO, handleOnClickItem: Function }, {}> {
     constructor(props) {
         super(props)
 
@@ -16,20 +14,13 @@ export class MovieItem extends React.Component<{ movie: MovieDTO, handleOnClickI
     }
 
     render() {
+        var movieDate = this.props.movie.release_date
         return <div onClick={this.handleOnClickItem} className="movie-item">
-            <Container textAlign='center'>
-                <Image src={this.props.movie.poster_path} />
-            </Container>
-            <Container textAlign='left'>
-                {this.props.movie.title}
-            </Container>
-            <Container textAlign='right'>
-                {this.props.movie.release_date}
-            </Container>
-            <Container textAlign='left'>
-                {this.props.movie.genres.map(genre => <GenreItem value={genre}
-                    key={genre.toString()} />)}
-            </Container>
+            <img src={this.props.movie.poster_path} className="img" />
+            <div>{this.props.movie.title}</div>
+            <div>{movieDate.getFullYear()}-{movieDate.getMonth()}-{movieDate.getDay()}</div>
+            <div>{this.props.movie.genres.map(genre => <GenreItem value={genre}
+                key={genre.toString()} />)}</div>
         </div>
     }
 }

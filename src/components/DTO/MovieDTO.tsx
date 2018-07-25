@@ -1,4 +1,4 @@
-export interface MovieDTO {
+export default interface MovieDTO {
     id: number
     tagline: string
     title: string

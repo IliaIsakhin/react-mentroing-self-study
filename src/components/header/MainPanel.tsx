@@ -1,10 +1,10 @@
-import * as React from 'react'
-import { SearchModePanel } from './SearchModePanel'
-import { ParamsDTO } from "./DTO/ParamsDTO"
-import { ViewModePanel } from './ViewModePanel';
-import { MovieDTO } from 'DTO/MovieDTO';
+import * as React from "react"
+import SearchModePanel from "./SearchModePanel"
+import ParamsDTO from "../DTO/ParamsDTO"
+import { ViewModePanel } from "./ViewModePanel"
+import MovieDTO from "../DTO/MovieDTO"
 
-export class MainPanel extends React.Component<{
+export default class MainPanel extends React.Component<{
     handleInput: Function,
     handleSearch: Function,
     handleChangeSearchBy: Function,
@@ -12,7 +12,7 @@ export class MainPanel extends React.Component<{
     params: ParamsDTO,
     moviesCounter: number,
     selectedMovie?: MovieDTO,
-    handleReturnClick: Function
+    handleReturnClick: Function,
 }, {}> {
     constructor(props) {
         super(props)

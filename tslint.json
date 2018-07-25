@@ -1,0 +1,9 @@
+{
+  "extends": ["tslint:latest", "tslint-react"],
+  "rules": {
+    "jsx-wrap-multiline": false,
+    "semicolon": [true, "never"],
+    "object-literal-sort-keys": false,
+    "ordered-imports": false
+  }
+}

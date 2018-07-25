@@ -1,9 +1,9 @@
-import * as ParameterEnums from './Enums/ParameterEnums'
+import { EnumSearchBy, EnumSortBy, EnumSortOrder }  from './Enums/Enums'
 
-export interface ParamsDTO {
+export default interface ParamsDTO {
     search: string,
-    searchBy: ParameterEnums.EnumSearchBy,
+    searchBy: EnumSearchBy,
     limit: number,
-    sortBy: ParameterEnums.EnumSortBy,
-    sortOrder: ParameterEnums.EnumSortOrder
+    sortBy: EnumSortBy,
+    sortOrder:EnumSortOrder,
 }

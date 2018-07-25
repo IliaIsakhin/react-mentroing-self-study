@@ -1,10 +1,9 @@
 import * as React from "react"
-import '../less/styles.less'
-import { ParamsDTO } from "./DTO/ParamsDTO"
-import { SearchByPanel } from './SearchByPanel'
+import ParamsDTO from "../DTO/ParamsDTO"
+import SearchByPanel from './SearchByPanel'
 
 
-export class SearchModePanel extends React.Component<{ handleInput: Function, handleSearch: Function, handleChangeSearchBy: Function, params: ParamsDTO }> {
+export default class SearchModePanel extends React.Component<{ handleInput: Function, handleSearch: Function, handleChangeSearchBy: Function, params: ParamsDTO }> {
     constructor(props) {
         super(props)
 

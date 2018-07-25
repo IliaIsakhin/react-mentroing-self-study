@@ -1,11 +1,10 @@
 import * as React from 'react'
-import '../less/styles.less'
-import { ParamsDTO } from "./DTO/ParamsDTO"
-import { MainPanel } from './MainPanel'
-import { MovieDTO } from 'DTO/MovieDTO'
-import { AdditionalPanel } from './AdditionalPanel'
+import ParamsDTO from "../DTO/ParamsDTO"
+import MainPanel from './MainPanel'
+import MovieDTO from '../DTO/MovieDTO'
+import AdditionalPanel from './AdditionalPanel'
 
-export class Header extends React.Component<{
+export default class Header extends React.Component<{
     handleInput: Function,
     handleSearch: Function,
     handleChangeSearchBy: Function,
@@ -21,7 +20,6 @@ export class Header extends React.Component<{
 
     render() {
         return <div className="header" >
-
             <MainPanel handleInput={this.props.handleInput}
                 handleSearch={this.props.handleSearch}
                 handleChangeSearchBy={this.props.handleChangeSearchBy}

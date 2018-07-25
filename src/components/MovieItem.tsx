@@ -14,12 +14,13 @@ export default class MovieItem extends React.Component<{ movie: MovieDTO, handle
     }
 
     render() {
-        var movieDate = this.props.movie.release_date
+        let { release_date, poster_path, title, genres } = this.props.movie
+
         return <div onClick={this.handleOnClickItem} className="movie-item">
-            <img src={this.props.movie.poster_path} className="img" />
-            <div>{this.props.movie.title}</div>
-            <div>{movieDate.getFullYear()}-{movieDate.getMonth()}-{movieDate.getDay()}</div>
-            <div>{this.props.movie.genres.map(genre => <GenreItem value={genre}
+            <img src={poster_path} className="img" />
+            <div>{title}</div>
+            <div>{release_date.getFullYear()}-{release_date.getMonth()}-{release_date.getDay()}</div>
+            <div>{genres.map(genre => <GenreItem value={genre}
                 key={genre.toString()} />)}</div>
         </div>
     }

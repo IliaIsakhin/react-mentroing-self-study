@@ -1,6 +1,6 @@
 import * as React from 'react'
 import MovieDTO from '../DTO/MovieDTO'
-import RatingComponent from '../RatingComponent'
+import {RatingComponent} from '../pure/RatingComponent'
 
 interface ViewModeInterface {
     selectedMovie: MovieDTO
@@ -13,20 +13,19 @@ export const ViewModePanel: React.StatelessComponent<ViewModeInterface> = (props
         props.handleReturnClick()
     }
 
-    const movie = props.selectedMovie
-    const rating: number = movie.vote_average
+    const {vote_average, title, overview, runtime, poster_path, release_date} = props.selectedMovie
 
     return <div className='view-panel'>
-        <img src={movie.poster_path} className='view-image' />
+        <img src={poster_path} className='view-image' />
         <button onClick={handleReturnClick} className={'active-button'} >Return to search</button>
         <div className='movie-info'>
-            <span className='movie-title'>{movie.title}</span>
-            <RatingComponent value={rating} />
+            <span className='movie-title'>{title}</span>
+            <RatingComponent rating={vote_average} />
             <div>
-                <span className='movie-span'>{props.selectedMovie.release_date.getFullYear()}</span><span className='movie-span'>{movie.runtime} min</span>
+                <span className='movie-span'>{release_date.getFullYear()}</span><span className='movie-span'>{runtime} min</span>
             </div>
             <br />
-            <span className='movie-description'>{movie.overview}</span>
+            <span className='movie-description'>{overview}</span>
         </div>
     </div>
 }

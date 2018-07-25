@@ -2,11 +2,16 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-module.exports = function () {
+module.exports = env => {
+  if (env) {
+    var isProduction = env.production
+  } else {
+    isProduction = false
+  }
   const config = {
     context: path.join(__dirname, "src"),
     entry: './',
-    mode: 'development',
+    mode: isProduction ? 'production' : 'development',
     devtool: 'source-map',
 
     resolve: {
@@ -33,6 +38,10 @@ module.exports = function () {
           fallback: 'style-loader',
           use: ['css-loader', 'less-loader'],
         }),
+      },
+      {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract([ 'css-loader'])
       },
       {
         test: /\.(png|ico|jpe?g)$/,

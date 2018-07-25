@@ -9,20 +9,18 @@ export class MovieList extends React.Component<{ params: Object, isLoading: bool
     }
 
     render() {
-        const isLoading = this.props.isLoading
+        let { isLoading, handleOnClickItem, movies } = this.props
 
         if (isLoading) {
             return <>Loading</>
         } else {
-            const movies = this.props.movies.map(movie =>
-                <MovieItem key={movie.id} movie={movie} handleOnClickItem={this.props.handleOnClickItem} />
-            )
-
             if (movies.length == 0) {
                 return <NoDataMessage />
             } else {
                 return <div className='container'>
-                    {movies}
+                    {movies.map(movie =>
+                        <MovieItem key={movie.id} movie={movie} handleOnClickItem={handleOnClickItem} />
+                    )}
                 </div>
             }
         }

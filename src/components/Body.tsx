@@ -10,9 +10,11 @@ export default class Body extends React.Component<{
     }
 
     render() {
-        return <MovieList params={this.props.params}
-            isLoading={this.props.isLoading}
-            movies={this.props.movies}
-            handleOnClickItem={this.props.handleOnClickItem} />
+        let { params, isLoading, movies, handleOnClickItem } = this.props
+
+        return <MovieList params={params}
+            isLoading={isLoading}
+            movies={movies}
+            handleOnClickItem={handleOnClickItem} />
     }
 }

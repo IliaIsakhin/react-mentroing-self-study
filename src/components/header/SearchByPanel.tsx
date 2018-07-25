@@ -33,11 +33,11 @@ export default class SearchByPanel extends React.Component<{ handleChangeSearchB
             'non-active-button': this.props.params.searchBy != searchByGenre
         })
 
-        return <div>
+        return <>
             <p className="text">Search by</p>
             <button className={buttonTitleClassNames} onClick={this.handleChangeSearchBy} value={searchByTitle}>title</ button>
             <button className={buttonGenreClassNames} onClick={this.handleChangeSearchBy} value={searchByGenre}>genres</ button>
             <button className="button float-right active-button" onClick={this.handleSearch}>Search</ button>
-        </div>
+        </>
     }
 }

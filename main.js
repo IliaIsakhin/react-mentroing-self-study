@@ -798,6 +798,17 @@ module.exports = warning;
 
 /***/ }),
 
+/***/ "../node_modules/normalize.css/normalize.css":
+/*!***************************************************!*\
+  !*** ../node_modules/normalize.css/normalize.css ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "../node_modules/object-assign/index.js":
 /*!**********************************************!*\
   !*** ../node_modules/object-assign/index.js ***!
@@ -19264,7 +19275,8 @@ class Body extends React.Component {
         super(props);
     }
     render() {
-        return React.createElement(MovieList_1.MovieList, { params: this.props.params, isLoading: this.props.isLoading, movies: this.props.movies, handleOnClickItem: this.props.handleOnClickItem });
+        let { params, isLoading, movies, handleOnClickItem } = this.props;
+        return React.createElement(MovieList_1.MovieList, { params: params, isLoading: isLoading, movies: movies, handleOnClickItem: handleOnClickItem });
     }
 }
 exports.default = Body;
@@ -19297,15 +19309,6 @@ var EnumSearchBy;
     EnumSearchBy["TITLE"] = "title";
     EnumSearchBy["GENRES"] = "genres";
 })(EnumSearchBy = exports.EnumSearchBy || (exports.EnumSearchBy = {}));
-var GenreEnum;
-(function (GenreEnum) {
-    GenreEnum["Action"] = "Action";
-    GenreEnum["Documental"] = "Documental";
-    GenreEnum["Adventure"] = "Adventure";
-    GenreEnum["Drama"] = "Drama";
-    GenreEnum["Crime"] = "Crime";
-    GenreEnum["Thriller"] = "Thriller";
-})(GenreEnum = exports.GenreEnum || (exports.GenreEnum = {}));
 
 
 /***/ }),
@@ -19331,17 +19334,17 @@ class MovieItem extends React.Component {
         this.props.handleOnClickItem(this.props.movie);
     }
     render() {
-        var movieDate = this.props.movie.release_date;
+        let { release_date, poster_path, title, genres } = this.props.movie;
         return React.createElement("div", { onClick: this.handleOnClickItem, className: "movie-item" },
-            React.createElement("img", { src: this.props.movie.poster_path, className: "img" }),
-            React.createElement("div", null, this.props.movie.title),
+            React.createElement("img", { src: poster_path, className: "img" }),
+            React.createElement("div", null, title),
             React.createElement("div", null,
-                movieDate.getFullYear(),
+                release_date.getFullYear(),
                 "-",
-                movieDate.getMonth(),
+                release_date.getMonth(),
                 "-",
-                movieDate.getDay()),
-            React.createElement("div", null, this.props.movie.genres.map(genre => React.createElement(GenreItem_1.GenreItem, { value: genre, key: genre.toString() }))));
+                release_date.getDay()),
+            React.createElement("div", null, genres.map(genre => React.createElement(GenreItem_1.GenreItem, { value: genre, key: genre.toString() }))));
     }
 }
 exports.default = MovieItem;
@@ -19367,66 +19370,21 @@ class MovieList extends React.Component {
         super(props);
     }
     render() {
-        const isLoading = this.props.isLoading;
+        let { isLoading, handleOnClickItem, movies } = this.props;
         if (isLoading) {
             return React.createElement(React.Fragment, null, "Loading");
         }
         else {
-            const movies = this.props.movies.map(movie => React.createElement(MovieItem_1.default, { key: movie.id, movie: movie, handleOnClickItem: this.props.handleOnClickItem }));
             if (movies.length == 0) {
                 return React.createElement(NoDataMessage_1.NoDataMessage, null);
             }
             else {
-                return React.createElement("div", { className: 'container' }, movies);
+                return React.createElement("div", { className: 'container' }, movies.map(movie => React.createElement(MovieItem_1.default, { key: movie.id, movie: movie, handleOnClickItem: handleOnClickItem })));
             }
         }
     }
 }
 exports.MovieList = MovieList;
-
-
-/***/ }),
-
-/***/ "./components/RatingComponent.tsx":
-/*!****************************************!*\
-  !*** ./components/RatingComponent.tsx ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-const React = __webpack_require__(/*! react */ "../node_modules/react/index.js");
-class RatingComponent extends React.Component {
-    rgbToHex(r, g, b) {
-        return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
-    }
-    render() {
-        const MAX_RATING = 10;
-        let rating = this.props.value;
-        let percentage = rating / MAX_RATING / 2;
-        if (rating < MAX_RATING / 2) {
-            var green = percentage * 255;
-            var red = 255;
-        }
-        else {
-            green = 255;
-            red = 255 - percentage * 255;
-        }
-        let color = this.rgbToHex(red, green, 0);
-        let style = {
-            color: color,
-            border: 'solid 1px ' + color,
-            borderRadius: '50%',
-            padding: '10px',
-            margin: '0 0 0 10px',
-            fontSize: '25px'
-        };
-        return (React.createElement("a", { style: style }, rating));
-    }
-}
-exports.default = RatingComponent;
 
 
 /***/ }),
@@ -19575,7 +19533,7 @@ class SearchByPanel extends React.Component {
             'active-button': this.props.params.searchBy == searchByGenre,
             'non-active-button': this.props.params.searchBy != searchByGenre
         });
-        return React.createElement("div", null,
+        return React.createElement(React.Fragment, null,
             React.createElement("p", { className: "text" }, "Search by"),
             React.createElement("button", { className: buttonTitleClassNames, onClick: this.handleChangeSearchBy, value: searchByTitle }, "title"),
             React.createElement("button", { className: buttonGenreClassNames, onClick: this.handleChangeSearchBy, value: searchByGenre }, "genres"),
@@ -19637,26 +19595,25 @@ exports.default = SearchModePanel;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 const React = __webpack_require__(/*! react */ "../node_modules/react/index.js");
-const RatingComponent_1 = __webpack_require__(/*! ../RatingComponent */ "./components/RatingComponent.tsx");
+const RatingComponent_1 = __webpack_require__(/*! ../pure/RatingComponent */ "./components/pure/RatingComponent.tsx");
 exports.ViewModePanel = (props) => {
     const handleReturnClick = () => {
         props.handleReturnClick();
     };
-    const movie = props.selectedMovie;
-    const rating = movie.vote_average;
+    const { vote_average, title, overview, runtime, poster_path, release_date } = props.selectedMovie;
     return React.createElement("div", { className: 'view-panel' },
-        React.createElement("img", { src: movie.poster_path, className: 'view-image' }),
+        React.createElement("img", { src: poster_path, className: 'view-image' }),
         React.createElement("button", { onClick: handleReturnClick, className: 'active-button' }, "Return to search"),
         React.createElement("div", { className: 'movie-info' },
-            React.createElement("span", { className: 'movie-title' }, movie.title),
-            React.createElement(RatingComponent_1.default, { value: rating }),
+            React.createElement("span", { className: 'movie-title' }, title),
+            React.createElement(RatingComponent_1.RatingComponent, { rating: vote_average }),
             React.createElement("div", null,
-                React.createElement("span", { className: 'movie-span' }, props.selectedMovie.release_date.getFullYear()),
+                React.createElement("span", { className: 'movie-span' }, release_date.getFullYear()),
                 React.createElement("span", { className: 'movie-span' },
-                    movie.runtime,
+                    runtime,
                     " min")),
             React.createElement("br", null),
-            React.createElement("span", { className: 'movie-description' }, movie.overview)));
+            React.createElement("span", { className: 'movie-description' }, overview)));
 };
 
 
@@ -19699,6 +19656,47 @@ exports.NoDataMessage = () => {
 
 /***/ }),
 
+/***/ "./components/pure/RatingComponent.tsx":
+/*!*********************************************!*\
+  !*** ./components/pure/RatingComponent.tsx ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const React = __webpack_require__(/*! react */ "../node_modules/react/index.js");
+exports.RatingComponent = (props) => {
+    function rgbToHex(r, g, b) {
+        return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+    }
+    const MAX_RATING = 10;
+    let { rating } = props;
+    let percentage = rating / MAX_RATING / 2;
+    if (rating < MAX_RATING / 2) {
+        var green = percentage * 255;
+        var red = 255;
+    }
+    else {
+        green = 255;
+        red = 255 - percentage * 255;
+    }
+    let color = rgbToHex(red, green, 0);
+    let style = {
+        color: color,
+        border: 'solid 1px ' + color,
+        borderRadius: '50%',
+        padding: '10px',
+        margin: '0 0 0 10px',
+        fontSize: '25px'
+    };
+    return (React.createElement("a", { style: style }, rating));
+};
+
+
+/***/ }),
+
 /***/ "./index.tsx":
 /*!*******************!*\
   !*** ./index.tsx ***!
@@ -19713,6 +19711,7 @@ const React = __webpack_require__(/*! react */ "../node_modules/react/index.js")
 const ReactDOM = __webpack_require__(/*! react-dom */ "../node_modules/react-dom/index.js");
 const App_1 = __webpack_require__(/*! ./components/App */ "./components/App.tsx");
 __webpack_require__(/*! ./less/styles.less */ "./less/styles.less");
+__webpack_require__(/*! normalize.css */ "../node_modules/normalize.css/normalize.css");
 ReactDOM.render(React.createElement(App_1.default, null), document.getElementById("app"));
 
 

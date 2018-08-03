@@ -1,4 +1,4 @@
-import MovieDTO from "DTO/MovieDTO"
+import { MovieType } from "../types";
 
 export default function constructURL(url: string, params: Object) {
     if (params) {
@@ -13,7 +13,7 @@ export default function constructURL(url: string, params: Object) {
     return url
 }
 
-export function sortMovies(movies: MovieDTO[], by: string): MovieDTO[] {
+export function sortMovies(movies: MovieType[], by: string): MovieType[] {
     switch (by) {
         case 'release_date':
             var compare = (a, b) => a.release_date.getTime() - b.release_date.getTime();
